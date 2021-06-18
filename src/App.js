@@ -1,7 +1,11 @@
+import Personal from './Components/Personal.js'
 
 function App () {
   return (
-    <h1>Not hello world</h1>
+    <div className='content'>
+      <h1>Cv app</h1>
+      <Personal />
+    </div>
   )
 }
 
