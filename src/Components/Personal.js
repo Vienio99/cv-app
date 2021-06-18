@@ -11,21 +11,13 @@ class Personal extends React.Component {
       isEdited: true
     }
 
-    this.handleClick = this.handleClick.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleClick (e) {
+  handleSubmit (e) {
     e.preventDefault()
-    if (this.state.isEdited) {
-      this.setState({
-        isEdited: false
-      })
-    } else {
-      this.setState({
-        isEdited: true
-      })
-    }
+    this.state.isEdited ? this.setState({ isEdited: false }) : this.setState({ isEdited: true })
   }
 
   handleChange (e) {
@@ -38,13 +30,13 @@ class Personal extends React.Component {
   }
 
   render () {
-    const { handleClick, handleChange } = this
+    const { handleSubmit, handleChange } = this
     const { firstName, lastName, email, phoneNumber } = this.state
     if (this.state.isEdited) {
       return (
         <div className='personal-info'>
           <h2>Personal information</h2>
-          <form id='personal' onSubmit={handleClick}>
+          <form id='personal' onSubmit={handleSubmit}>
             <input
               type='text'
               name='firstName'
@@ -70,7 +62,7 @@ class Personal extends React.Component {
               className='field'
             />
             <input
-              type='text'
+              type='number'
               name='phoneNumber'
               placeholder='Phone Number'
               value={phoneNumber}
@@ -89,7 +81,7 @@ class Personal extends React.Component {
           <p>Last name: {lastName}</p>
           <p>E-mail: {email}</p>
           <p>Phone Number: {phoneNumber}</p>
-          <button type='button' value='Edit' onClick={handleClick}>Edit</button>
+          <button type='button' value='Edit' onClick={handleSubmit}>Edit</button>
         </div>
 
       )
