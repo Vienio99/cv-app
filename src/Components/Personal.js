@@ -11,39 +11,89 @@ class Personal extends React.Component {
       isEdited: true
     }
 
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleSubmit (e) {
+  handleClick (e) {
     e.preventDefault()
-    this.setState({
-      isEdited: false
-    })
-    console.log('ok')
+    if (this.state.isEdited) {
+      this.setState({
+        isEdited: false
+      })
+    } else {
+      this.setState({
+        isEdited: true
+      })
+    }
   }
 
   handleChange (e) {
     e.preventDefault()
-    console.log(e.target.value)
+    const value = e.target.value
     this.setState({
+      ...this.state,
+      [e.target.name]: value
     })
   }
 
   render () {
-    const { handleSubmit, handleChange } = this
-    return (
-      <div className='personal-info'>
-        <h2>Personal information</h2>
-        <form id='personal' onSubmit={handleSubmit}>
-          <input type='text' placeholder='First Name' className='field' value={this.state.firstName} onChange={handleChange} />
-          <input type='text' placeholder='Last Name' className='field' value={this.state.lastName} onChange={handleChange} />
-          <input type='email' placeholder='E-mail' className='field' value={this.state.email} onChange={handleChange} />
-          <input type='text' placeholder='Phone Number' className='field' value={this.state.phoneNumber} onChange={handleChange} />
-          <input type='submit' />
-        </form>
-      </div>
-    )
+    const { handleClick, handleChange } = this
+    const { firstName, lastName, email, phoneNumber } = this.state
+    if (this.state.isEdited) {
+      return (
+        <div className='personal-info'>
+          <h2>Personal information</h2>
+          <form id='personal' onSubmit={handleClick}>
+            <input
+              type='text'
+              name='firstName'
+              placeholder='First Name'
+              value={firstName}
+              onChange={handleChange}
+              className='field'
+            />
+            <input
+              type='text'
+              name='lastName'
+              placeholder='Last Name'
+              value={lastName}
+              onChange={handleChange}
+              className='field'
+            />
+            <input
+              type='email'
+              name='email'
+              placeholder='E-mail'
+              value={email}
+              onChange={handleChange}
+              className='field'
+            />
+            <input
+              type='text'
+              name='phoneNumber'
+              placeholder='Phone Number'
+              value={phoneNumber}
+              onChange={handleChange}
+              className='field'
+            />
+            <input type='submit' />
+          </form>
+        </div>
+      )
+    } else {
+      return (
+        <div className='personal-info'>
+          <h2>Personal information</h2>
+          <p>First name: {firstName}</p>
+          <p>Last name: {lastName}</p>
+          <p>E-mail: {email}</p>
+          <p>Phone Number: {phoneNumber}</p>
+          <button type='button' value='Edit' onClick={handleClick}>Edit</button>
+        </div>
+
+      )
+    }
   }
 }
 
