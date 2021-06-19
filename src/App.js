@@ -22,6 +22,10 @@ function App () {
         <h2>Test section</h2>
         <Section sectionName='personal' />
       </div>
+      <div>
+        <h2>Test section 2</h2>
+        <Section sectionName='experience' />
+      </div>
     </div>
   )
 }

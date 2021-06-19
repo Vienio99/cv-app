@@ -7,27 +7,27 @@ class Section extends React.Component {
     this.state = {
       personal: {
         isEdited: true,
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: ''
+        firstName: { text: '', type: 'text', title: 'First name' },
+        lastName: { text: '', type: 'text', title: 'Last name' },
+        email: { text: '', type: 'email', title: 'E-mail' },
+        phoneNumber: { text: '', type: 'number', title: 'Phone number' }
       },
       experience: {
         isEdited: true,
-        position: '',
-        company: '',
-        location: '',
-        startDate: '',
-        endDate: ''
+        position: { text: '', type: 'text', title: 'Position' },
+        company: { text: '', type: 'text', title: 'Company' },
+        location: { text: '', type: 'text', title: 'Location' },
+        startDate: { text: '', type: 'date', title: 'Start date' },
+        endDate: { text: '', type: 'date', title: 'End date' }
       },
       education: {
         isEdited: true,
-        schoolName: '',
-        subject: '',
-        degree: '',
-        location: '',
-        startDate: '',
-        endDate: ''
+        schoolName: { text: '', type: 'text', title: 'School name' },
+        subject: { text: '', type: 'text', title: 'Subject' },
+        degree: { text: '', type: 'text', title: 'Degree' },
+        location: { text: '', type: 'text', title: 'Location' },
+        startDate: { text: '', type: 'date', title: 'Start date' },
+        endDate: { text: '', type: 'date', title: 'End date' }
       }
 
     }
@@ -39,19 +39,23 @@ class Section extends React.Component {
   handleSubmit (e) {
     e.preventDefault()
     const section = this.props.sectionName
-    console.log(section)
     this.state[section].isEdited ? this.setState({ [section]: { ...this.state[section], isEdited: false } }) : this.setState({ [section]: { ...this.state[section], isEdited: true } })
   }
 
   handleChange (e) {
     e.preventDefault()
     const value = e.target.value
-    const section = e.target.name
-    console.log('ok')
+    const field = e.target.name
+    const section = this.props.sectionName
+    console.log(value)
+    console.log(field)
+    console.log(section)
     this.setState({
       [section]: {
-        ...this.state,
-        [e.target.name]: value
+        ...this.state[section],
+        [field]: { 
+          ...this.state[section][field], text: value 
+        }
       }
     })
   }
@@ -61,24 +65,22 @@ class Section extends React.Component {
     const { sectionName } = this.props
     const inputFields = []
     const paraFields = []
-    console.log(this.state[sectionName])
     for (const fieldName in this.state[sectionName]) {
       if (fieldName === 'isEdited') {
       } else {
         if (this.state[sectionName].isEdited) {
           inputFields.push(<input
-            type='text'
+            type={this.state[sectionName][fieldName].type}
             name={fieldName}
             section={sectionName}
-            placeholder={fieldName}
-            value={this.state[sectionName][fieldName]}
+            placeholder={this.state[sectionName][fieldName].title}
+            value={this.state[sectionName][fieldName].text}
             onChange={handleChange}
             className='field'
-            key={uniqid()}
           />)
         } else {
           paraFields.push(
-            <p key={uniqid()}>{fieldName}: {this.state[sectionName][fieldName]}</p>
+            <p key={uniqid()}>{this.state[sectionName][fieldName].title}: {this.state[sectionName][fieldName].text}</p>
           )
         }
       }
