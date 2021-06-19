@@ -5,14 +5,7 @@ body {
   text-align: center;
 }
 
-#personal {
-  display: flex;
-  margin: 0 auto;
-  flex-direction: column;
-  width: 300px;
-}
-
-#experience {
+#personal, #experience, #education {
   display: flex;
   margin: 0 auto;
   flex-direction: column;

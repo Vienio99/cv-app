@@ -1,12 +1,13 @@
 import React from 'react'
 
-class Experience extends React.Component {
+class Education extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       isEdited: true,
-      position: '',
-      company: '',
+      schoolName: '',
+      subject: '',
+      degree: '',
       location: '',
       startDate: '',
       endDate: ''
@@ -32,23 +33,31 @@ class Experience extends React.Component {
 
   render () {
     const { handleSubmit, handleChange } = this
-    const { position, company, location, startDate, endDate } = this.state
+    const { schoolName, subject, degree, location, startDate, endDate } = this.state
     if (this.state.isEdited) {
       return (
-        <form id='experience' onSubmit={handleSubmit}>
+        <form id='education' onSubmit={handleSubmit}>
           <input
             type='text'
-            name='position'
-            placeholder='Position'
-            value={position}
+            name='schoolName'
+            placeholder='School name'
+            value={schoolName}
             onChange={handleChange}
             className='field'
           />
           <input
             type='text'
-            name='company'
-            placeholder='Company'
-            value={company}
+            name='degree'
+            placeholder='Degree'
+            value={degree}
+            onChange={handleChange}
+            className='field'
+          />
+          <input
+            type='text'
+            name='subject'
+            placeholder='Subject'
+            value={subject}
             onChange={handleChange}
             className='field'
           />
@@ -82,17 +91,17 @@ class Experience extends React.Component {
     } else {
       return (
         <div>
-          <p>Position: {position}</p>
-          <p>Company: {company}</p>
+          <p>School name: {schoolName}</p>
+          <p>Degree: {degree}</p>
+          <p>Subject: {subject}</p>
           <p>Location: {location}</p>
           <p>Start date: {startDate}</p>
           <p>End date: {endDate}</p>
           <button type='button' value='Edit' onClick={handleSubmit}>Edit</button>
         </div>
-
       )
     }
   }
 }
 
-export default Experience
+export default Education

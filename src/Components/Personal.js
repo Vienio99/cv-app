@@ -34,56 +34,51 @@ class Personal extends React.Component {
     const { firstName, lastName, email, phoneNumber } = this.state
     if (this.state.isEdited) {
       return (
-        <div className='personal-info'>
-          <h2>Personal information</h2>
-          <form id='personal' onSubmit={handleSubmit}>
-            <input
-              type='text'
-              name='firstName'
-              placeholder='First Name'
-              value={firstName}
-              onChange={handleChange}
-              className='field'
-            />
-            <input
-              type='text'
-              name='lastName'
-              placeholder='Last Name'
-              value={lastName}
-              onChange={handleChange}
-              className='field'
-            />
-            <input
-              type='email'
-              name='email'
-              placeholder='E-mail'
-              value={email}
-              onChange={handleChange}
-              className='field'
-            />
-            <input
-              type='number'
-              name='phoneNumber'
-              placeholder='Phone Number'
-              value={phoneNumber}
-              onChange={handleChange}
-              className='field'
-            />
-            <input type='submit' />
-          </form>
-        </div>
+        <form id='personal' onSubmit={handleSubmit}>
+          <input
+            type='text'
+            name='firstName'
+            placeholder='First Name'
+            value={firstName}
+            onChange={handleChange}
+            className='field'
+          />
+          <input
+            type='text'
+            name='lastName'
+            placeholder='Last Name'
+            value={lastName}
+            onChange={handleChange}
+            className='field'
+          />
+          <input
+            type='email'
+            name='email'
+            placeholder='E-mail'
+            value={email}
+            onChange={handleChange}
+            className='field'
+          />
+          <input
+            type='number'
+            name='phoneNumber'
+            placeholder='Phone Number'
+            value={phoneNumber}
+            onChange={handleChange}
+            className='field'
+          />
+          <input type='submit' />
+        </form>
       )
     } else {
       return (
-        <div className='personal-info'>
-          <h2>Personal information</h2>
+        <div>
           <p>First name: {firstName}</p>
           <p>Last name: {lastName}</p>
           <p>E-mail: {email}</p>
           <p>Phone Number: {phoneNumber}</p>
           <button type='button' value='Edit' onClick={handleSubmit}>Edit</button>
         </div>
-
       )
     }
   }
