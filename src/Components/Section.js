@@ -29,7 +29,6 @@ class Section extends React.Component {
         startDate: { text: '', type: 'date', title: 'Start date' },
         endDate: { text: '', type: 'date', title: 'End date' }
       }
-
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -39,7 +38,11 @@ class Section extends React.Component {
   handleSubmit (e) {
     e.preventDefault()
     const section = this.props.sectionName
-    this.state[section].isEdited ? this.setState({ [section]: { ...this.state[section], isEdited: false } }) : this.setState({ [section]: { ...this.state[section], isEdited: true } })
+    if (this.state[section].isEdited) {
+      this.setState({ [section]: { ...this.state[section], isEdited: false } })
+    } else {
+      this.setState({ [section]: { ...this.state[section], isEdited: true } })
+    }
   }
 
   handleChange (e) {
@@ -47,9 +50,6 @@ class Section extends React.Component {
     const value = e.target.value
     const field = e.target.name
     const section = this.props.sectionName
-    console.log(value)
-    console.log(field)
-    console.log(section)
     this.setState({
       [section]: {
         ...this.state[section],
@@ -66,10 +66,10 @@ class Section extends React.Component {
     const inputFields = []
     const paraFields = []
     for (const fieldName in this.state[sectionName]) {
-      if (fieldName === 'isEdited') {
-      } else {
+      if (fieldName !== 'isEdited') {
         if (this.state[sectionName].isEdited) {
-          inputFields.push(<input
+          inputFields.push(
+          <input
             type={this.state[sectionName][fieldName].type}
             name={fieldName}
             section={sectionName}
@@ -77,7 +77,8 @@ class Section extends React.Component {
             value={this.state[sectionName][fieldName].text}
             onChange={handleChange}
             className='field'
-          />)
+          />
+          )
         } else {
           paraFields.push(
             <p key={uniqid()}>{this.state[sectionName][fieldName].title}: {this.state[sectionName][fieldName].text}</p>
