@@ -53,8 +53,8 @@ class Section extends React.Component {
     this.setState({
       [section]: {
         ...this.state[section],
-        [field]: { 
-          ...this.state[section][field], text: value 
+        [field]: {
+          ...this.state[section][field], text: value
         }
       }
     })
@@ -69,15 +69,15 @@ class Section extends React.Component {
       if (fieldName !== 'isEdited') {
         if (this.state[sectionName].isEdited) {
           inputFields.push(
-          <input
-            type={this.state[sectionName][fieldName].type}
-            name={fieldName}
-            section={sectionName}
-            placeholder={this.state[sectionName][fieldName].title}
-            value={this.state[sectionName][fieldName].text}
-            onChange={handleChange}
-            className='field'
-          />
+            <input
+              type={this.state[sectionName][fieldName].type}
+              name={fieldName}
+              section={sectionName}
+              placeholder={this.state[sectionName][fieldName].title}
+              value={this.state[sectionName][fieldName].text}
+              onChange={handleChange}
+              className='field'
+            />
           )
         } else {
           paraFields.push(
