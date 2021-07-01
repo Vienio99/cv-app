@@ -1,5 +1,6 @@
 import React from 'react'
 import uniqid from 'uniqid'
+import Preview from './Preview.js'
 
 class Section extends React.Component {
   constructor (props) {
@@ -65,38 +66,43 @@ class Section extends React.Component {
     const { sectionName } = this.props
     const inputFields = []
     const paraFields = []
+    const section = this.state[sectionName]
     for (const fieldName in this.state[sectionName]) {
       if (fieldName !== 'isEdited') {
-        if (this.state[sectionName].isEdited) {
+        if (section.isEdited) {
           inputFields.push(
             <input
-              type={this.state[sectionName][fieldName].type}
+              type={section[fieldName].type}
               name={fieldName}
               section={sectionName}
-              placeholder={this.state[sectionName][fieldName].title}
-              value={this.state[sectionName][fieldName].text}
+              placeholder={section[fieldName].title}
+              value={section[fieldName].text}
               onChange={handleChange}
               className='field'
             />
           )
         } else {
           paraFields.push(
-            <p key={uniqid()}>{this.state[sectionName][fieldName].title}: {this.state[sectionName][fieldName].text}</p>
+            <p key={uniqid()}>{section[fieldName].title}: {section[fieldName].text}</p>
           )
         }
       }
     }
-    if (this.state[sectionName].isEdited) {
+    if (section.isEdited) {
       return (
-        <form id={sectionName} onSubmit={handleSubmit}>
-          {inputFields}
-          <input type='submit' />
-        </form>
+        <div>
+          <form className='forms' onSubmit={handleSubmit}>
+            {inputFields}
+            <input type='submit' />
+          </form>
+          <Preview paraFields={paraFields} className='preview' />
+        </div>
       )
     } else {
       return (
         <div>
           {paraFields}
+          <Preview paraFields={paraFields} className='preview' />
           <button type='button' value='Edit' name={sectionName} onClick={handleSubmit}>Edit</button>
         </div>
       )

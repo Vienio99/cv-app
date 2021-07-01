@@ -1,29 +1,6 @@
 import React from 'react'
 import Section from './Components/Section.js'
 
-// function App () {
-
-//   return (
-//     <div className='content'>
-//       <h1>Cv app</h1>
-//       <div className='personal-section'>
-//         <h2>Personal</h2>
-//         <Section sectionName='personal' />
-//       </div>
-//       <div className='experience-section'>
-//         <h2>Experience</h2>
-//         <Section sectionName='experience' />
-//         <button type='button' onClick={handleAdd}>Add</button>
-//       </div>
-//       <div className='education-section'>
-//         <h2>Education</h2>
-//         <Section sectionName='education' />
-//         <button type='button'>Add</button>
-//       </div>
-//     </div>
-//   )
-// }
-
 class App extends React.Component {
   constructor (props) {
     super(props)
@@ -55,7 +32,7 @@ class App extends React.Component {
       const section = sectionList[i]
       const upperCaseSection = section.charAt(0).toUpperCase() + section.slice(1)
       elementsList.push(
-        <div className={section}>
+        <div className={section} key={i}>
           <h2>{upperCaseSection}</h2>
           <Section sectionName={section} />
           <button type='button' onClick={() => handleAdd(section)}>Add</button>
@@ -65,21 +42,15 @@ class App extends React.Component {
     return (
       <div className='content'>
         <h1>Cv app</h1>
-        <div className='personal-section'>
-          <h2>Personal</h2>
-          <Section sectionName='personal' />
-        </div>
-        {elementsList}
-        {/* <div className='experience-section'>
-          <h2>Experience</h2>
-          <Section sectionName='experience' />
-          <button type='button' onClick={() => handleAdd('experience')}>Add</button>
-        </div>
-        <div className='education-section'>
-          <h2>Education</h2>
-          <Section sectionName='education' />
-          <button type='button' onClick={() => handleAdd('education')}>Add</button>
-        </div> */}
+        <main>
+          <div className='sections'>
+            <div className='personal'>
+              <h2>Personal</h2>
+              <Section sectionName='personal' />
+            </div>
+            {elementsList}
+          </div>
+        </main>
       </div>
     )
   }
