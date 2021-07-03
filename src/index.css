@@ -7,20 +7,11 @@ body {
 
 .forms {
   display: flex;
+  margin: 0 auto;
   flex-direction: column;
   width: 300px;
 }
 
 ul li {
   list-style-type: none;
-}
-
-.section-content {
-  display: flex;
-  justify-content: space-around;
-}
-
-.preview {
-  margin-top: 0;
-  width: 300px;
 }
