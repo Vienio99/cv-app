@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Section from './Components/Section.js'
+import Header from './Components/Header.js'
 
-class App extends React.Component {
+class App extends Component {
   constructor (props) {
     super(props)
 
@@ -10,6 +11,7 @@ class App extends React.Component {
     }
 
     this.handleAdd = this.handleAdd.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleAdd (section) {
@@ -24,8 +26,17 @@ class App extends React.Component {
     }
   }
 
+  handleDelete (key) {
+    const newSectionList = this.state.sectionList.slice()
+    newSectionList.splice(key, 1)
+    console.log(newSectionList)
+    this.setState({
+      sectionList: newSectionList
+    })
+  }
+
   render () {
-    const { handleAdd } = this
+    const { handleAdd, handleDelete } = this
     const { sectionList } = this.state
     const elementsList = []
     for (let i = 0; i < sectionList.length; i++) {
@@ -36,12 +47,13 @@ class App extends React.Component {
           <h2>{upperCaseSection}</h2>
           <Section sectionName={section} />
           <button type='button' onClick={() => handleAdd(section)}>Add</button>
+          <button type='button' onClick={() => handleDelete(i)}>Delete</button>
         </div>
       )
     }
     return (
       <div className='content'>
-        <h1>Cv app</h1>
+        <Header />
         <main>
           <div className='sections'>
             <div className='personal'>

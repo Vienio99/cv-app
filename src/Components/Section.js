@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
 import uniqid from 'uniqid'
-import Preview from './Preview.js'
 
-class Section extends React.Component {
+class Section extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -95,14 +94,12 @@ class Section extends React.Component {
             {inputFields}
             <input type='submit' />
           </form>
-          <Preview paraFields={paraFields} className='preview' />
         </div>
       )
     } else {
       return (
         <div>
           {paraFields}
-          <Preview paraFields={paraFields} className='preview' />
           <button type='button' value='Edit' name={sectionName} onClick={handleSubmit}>Edit</button>
         </div>
       )
