@@ -7,11 +7,10 @@ class Submitted extends Component {
     for (const field in fields) {
       if (field !== 'isEdited') {
         submittedFields.push(
-          <p key=''>{fields[field].title}: {fields[field].text}</p>
+          <p key={fields[field].key}>{fields[field].title}: {fields[field].text}</p>
         )
       }
     }
-
     return (
       <div>
         {submittedFields}

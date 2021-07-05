@@ -1,21 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Sections from './Components/Sections.js'
-import Header from './Components/Header.js'
 
-class App extends Component {
+class App extends React.Component {
   render () {
     return (
-      <div className='content'>
-        <Header />
-        <main>
-          <div className='sections'>
-            <div className='personal'>
-              <h2>Personal</h2>
-              <Sections />
-            </div>
-          </div>
-        </main>
-      </div>
+      <Sections />
     )
   }
 }

@@ -15,7 +15,7 @@ class Form extends Component {
             value={fields[field].text}
             onChange={this.props.handleChange}
             className='field'
-            key=''
+            key={fields[field].key}
           />
         )
       }

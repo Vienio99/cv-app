@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Personal from './Sections/Personal'
+import Section from './Sections/Section.js'
 
 class Sections extends Component {
   constructor (props) {
@@ -35,8 +35,48 @@ class Sections extends Component {
   }
 
   render () {
+    const { handleDelete } = this
+    const { sectionList } = this.state
+    const experienceSections = []
+    const educationSections = []
+    for (let i = 0; i < sectionList.length; i++) {
+      const section = sectionList[i]
+      if (section === 'experience') {
+        experienceSections.push(
+          <div key={i}>
+            <Section sectionName={section} />
+            <button type='button' onClick={() => handleDelete(section)}>Delete</button>
+          </div>
+        )
+      } else {
+        educationSections.push(
+          <div key={i}>
+            <Section sectionName={section} />
+            <button type='button' onClick={() => handleDelete(section)}>Delete</button>
+          </div>
+        )
+      }
+    }
     return (
-      <Personal />
+      <div className='content'>
+        <h1>Cv app</h1>
+        <main>
+          <div className='sections'>
+            <div className='personal'>
+              <h2>Personal</h2>
+              <Section sectionName='personal' />
+            </div>
+            <div className='experience'>
+              <h2>Experience</h2>
+              {experienceSections}
+            </div>
+            <div className='education'>
+              <h2>Education</h2>
+              {educationSections}
+            </div>
+          </div>
+        </main>
+      </div>
     )
   }
 }
