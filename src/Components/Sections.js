@@ -6,26 +6,33 @@ class Sections extends Component {
     super(props)
 
     this.state = {
-      sectionList: ['experience', 'education']
+      sectionList: [{ id: 1, name: 'experience' }, { id: 2, name: 'education' }],
+      sectionsCounter: 2
     }
 
     this.handleAdd = this.handleAdd.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
   }
 
-  handleAdd (section) {
-    if (section === 'experience') {
-      this.setState({
-        sectionList: [section, ...this.state.sectionList]
-      })
-    } else {
-      this.setState({
-        sectionList: [...this.state.sectionList, section]
-      })
+  handleAdd (e, section) {
+    e.preventDefault()
+    function setStateFunction (state, props) {
+      const count = state.sectionsCounter + 1
+      const newState = { sectionList: [...state.sectionList, { id: count, name: section }], sectionsCounter: count }
+      console.log(newState)
+      return newState
     }
+    this.setState(setStateFunction)
+    // this.setState({
+    //   sectionList: [...this.state.sectionList, { id: this.state.sectionsCounter, name: section }],
+    //   ...this.state
+    // })
+    console.log(this.state)
   }
 
-  handleDelete (key) {
+  handleDelete (e, key) {
+    e.preventDefault()
+    console.log(key)
     const newSectionList = this.state.sectionList.slice()
     newSectionList.splice(key, 1)
     console.log(newSectionList)
@@ -35,24 +42,23 @@ class Sections extends Component {
   }
 
   render () {
-    const { handleDelete } = this
+    const { handleAdd, handleDelete } = this
     const { sectionList } = this.state
     const experienceSections = []
     const educationSections = []
-    for (let i = 0; i < sectionList.length; i++) {
-      const section = sectionList[i]
-      if (section === 'experience') {
+    for (const section of sectionList) {
+      if (section.name === 'experience') {
         experienceSections.push(
-          <div key={i}>
-            <Section sectionName={section} />
-            <button type='button' onClick={() => handleDelete(section)}>Delete</button>
+          <div key={section.id}>
+            <Section sectionName={section.name} />
+            <button type='button' onClick={(e) => handleDelete(e, section.id)}>Delete</button>
           </div>
         )
       } else {
         educationSections.push(
-          <div key={i}>
-            <Section sectionName={section} />
-            <button type='button' onClick={() => handleDelete(section)}>Delete</button>
+          <div key={section.id}>
+            <Section sectionName={section.name} />
+            <button type='button' onClick={(e) => handleDelete(e, section.id)}>Delete</button>
           </div>
         )
       }
@@ -69,10 +75,12 @@ class Sections extends Component {
             <div className='experience'>
               <h2>Experience</h2>
               {experienceSections}
+              <button type='button' onClick={(e) => handleAdd(e, 'experience')}>Add</button>
             </div>
             <div className='education'>
               <h2>Education</h2>
               {educationSections}
+              <button type='button' onClick={(e) => handleAdd(e, 'education')}>Add</button>
             </div>
           </div>
         </main>
