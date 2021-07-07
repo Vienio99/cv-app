@@ -67,14 +67,10 @@ class Section extends React.Component {
     const fields = this.state[sectionName]
     if (fields.isEdited) {
       return (
-        <div>
-          <form className='forms' onSubmit={handleSubmit}>
-            <div>
-              <Form fields={fields} handleChange={handleChange} />
-            </div>
-            <input type='submit' />
-          </form>
-        </div>
+        <form className='forms' onSubmit={handleSubmit}>
+          <Form fields={fields} handleChange={handleChange} />
+          <input type='submit' />
+        </form>
       )
     } else {
       return (

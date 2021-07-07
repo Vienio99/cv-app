@@ -21,7 +21,7 @@ class Form extends Component {
       }
     }
     return (
-      <div>
+      <div className='inputFields'>
         {inputFields}
       </div>
     )
