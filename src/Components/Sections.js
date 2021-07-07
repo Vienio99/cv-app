@@ -19,25 +19,17 @@ class Sections extends Component {
     function setStateFunction (state, props) {
       const count = state.sectionsCounter + 1
       const newState = { sectionList: [...state.sectionList, { id: count, name: section }], sectionsCounter: count }
-      console.log(newState)
       return newState
     }
     this.setState(setStateFunction)
-    // this.setState({
-    //   sectionList: [...this.state.sectionList, { id: this.state.sectionsCounter, name: section }],
-    //   ...this.state
-    // })
-    console.log(this.state)
   }
 
   handleDelete (e, key) {
     e.preventDefault()
-    console.log(key)
     const newSectionList = this.state.sectionList.slice()
     newSectionList.splice(key, 1)
-    console.log(newSectionList)
     this.setState({
-      sectionList: newSectionList
+      sectionList: this.state.sectionList.filter(section => section.id !== key)
     })
   }
 
