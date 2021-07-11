@@ -34,13 +34,15 @@ class Sections extends Component {
     this.setState(setStateFunction)
   }
 
-  handleDelete (e, key) {
+  handleDelete (e, id) {
     e.preventDefault()
-    const newSectionList = this.state.sectionList.slice()
-    newSectionList.splice(key, 1)
-    this.setState({
-      sectionList: this.state.sectionList.filter(section => section.id !== key)
-    })
+    function setStateFunction (state, props) {
+      const newState = { ...state }
+      delete newState[id]
+      return newState
+    }
+    this.setState(setStateFunction)
+    console.log(this.state)
   }
 
   generatePdf (e) {
@@ -58,8 +60,9 @@ class Sections extends Component {
     e.preventDefault()
     const value = e.target.value
     const field = e.target.name
+    console.log(this.state)
     this.setState({
-      [id]: { ...this.state[id], fields: { ...this.state[id].fields, [field]: value } }
+      [id]: { ...this.state[id], fields: { ...this.state[id].fields, [field]: { ...this.state[id].fields[field], text: value } } }
     })
   }
 
@@ -69,7 +72,6 @@ class Sections extends Component {
     const educationSections = []
     for (const section in this.state) {
       if (this.state[section].name === 'experience') {
-        console.log(this.state[section].id)
         experienceSections.push(
           <div key={this.state[section].id}>
             <Experience dataId={this.state[section].id} handleChange={handleChange} fields={this.state[section].fields} />
@@ -85,7 +87,6 @@ class Sections extends Component {
         )
       }
     }
-    console.log(this.state)
     return (
       <div className='content'>
         <Header />

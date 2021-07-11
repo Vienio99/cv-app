@@ -5,7 +5,7 @@ class Experience extends Component {
     const { fields, handleChange, dataId } = this.props
     return (
       <div className='inputFields'>
-        <form className='forms' data-id={dataId}>
+        <form className='forms'>
           <input
             type='text'
             name='position'
