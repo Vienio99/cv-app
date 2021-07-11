@@ -36,23 +36,36 @@ class Sections extends Component {
 
   handleDelete (e, id) {
     e.preventDefault()
-    function setStateFunction (state, props) {
-      const newState = { ...state }
-      delete newState[id]
-      return newState
-    }
-    this.setState(setStateFunction)
+
+    this.setState({ [id]: 'deleted' })
     console.log(this.state)
   }
 
   generatePdf (e) {
     const doc = new JsPDF('p', 'pt')
-    doc.text(20, 20, '--CV--')
+    doc.text(275, 50, '--CV--')
     doc.setFont('helvetica')
-    doc.text(20, 60, 'This is the content area.')
-    doc.addPage() // this code creates new page in pdf document
-    doc.setFont('helvetica')
-    doc.text(20, 100, 'This is the second page.')
+
+    doc.text(20, 100, 'Personal information')
+    doc.text(20, 130, this.state[0].fields.firstName.text)
+    doc.text(80, 130, this.state[0].fields.lastName.text)
+    doc.text(20, 150, this.state[0].fields.phoneNumber.text)
+    doc.text(20, 170, this.state[0].fields.email.text)
+
+    doc.text(20, 210, 'Work experience')
+    doc.text(20, 240, this.state[1].fields.position.text)
+    doc.text(20, 260, this.state[1].fields.company.text)
+    doc.text(20, 280, this.state[1].fields.location.text)
+    doc.text(20, 300, this.state[1].fields.startDate.text)
+    doc.text(120, 300, this.state[1].fields.endDate.text)
+
+    doc.text(20, 340, 'Education')
+    doc.text(20, 370, this.state[2].fields.schoolName.text)
+    doc.text(20, 390, this.state[2].fields.subject.text)
+    doc.text(20, 410, this.state[2].fields.degree.text)
+    doc.text(20, 430, this.state[2].fields.location.text)
+    doc.text(20, 450, this.state[2].fields.startDate.text)
+    doc.text(120, 450, this.state[2].fields.endDate.text)
     doc.output('dataurlnewwindow')
   }
 
