@@ -1,37 +1,37 @@
 import React, { Component } from 'react'
-import Form from './Form.js'
 import Header from './Header.js'
 import { jsPDF as JsPDF } from 'jspdf'
 import fields from './fields.js'
+import Personal from './Sections/Personal.js'
+import Experience from './Sections/Experience.js'
+import Education from './Sections/Education.js'
 
 class Sections extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      sectionList: [
-        { id: 0, name: 'personal', fields: fields.personal },
-        { id: 1, name: 'experience', fields: fields.experience },
-        { id: 2, name: 'education', fields: fields.education }
-      ],
-      sectionsCounter: 2
+      0: { id: 0, name: 'personal', fields: fields.personal },
+      1: { id: 1, name: 'experience', fields: fields.experience },
+      2: { id: 2, name: 'education', fields: fields.education }
     }
+    this.sectionsCounter = 2
 
     this.handleAdd = this.handleAdd.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
-    this.generatePdf = this.generatePdf.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.generatePdf = this.generatePdf.bind(this)
   }
 
   handleAdd (e, section) {
     e.preventDefault()
+    const count = this.sectionsCounter + 1
     function setStateFunction (state, props) {
-      const count = state.sectionsCounter + 1
-      const newState = { sectionList: [...state.sectionList, { id: count, name: section, fields: fields[section] }], sectionsCounter: count }
+      const newState = { ...state, [count]: { id: count, name: section, fields: fields[section] } }
+      this.sectionsCounter = count
       return newState
     }
     this.setState(setStateFunction)
-    console.log(this.state.sectionList[2])
   }
 
   handleDelete (e, key) {
@@ -59,37 +59,33 @@ class Sections extends Component {
     const value = e.target.value
     const field = e.target.name
     this.setState({
-      sectionList:
-        [...this.state.sectionList,
-          this.state.sectionList[id].fields[field].text: value
-        ]
+      [id]: { ...this.state[id], fields: { ...this.state[id].fields, [field]: value } }
     })
-    console.log(id)
-    console.log(this.state.sectionList[id].fields[field].text)
   }
 
   render () {
     const { handleAdd, handleDelete, generatePdf, handleChange } = this
-    const { sectionList } = this.state
     const experienceSections = []
     const educationSections = []
-    for (const section of sectionList) {
-      if (section.name === 'experience') {
+    for (const section in this.state) {
+      if (this.state[section].name === 'experience') {
+        console.log(this.state[section].id)
         experienceSections.push(
-          <div key={section.id}>
-            <Form dataId={section.id} handleChange={handleChange} fields={fields.experience} />
-            <button type='button' onClick={(e) => handleDelete(e, section.id)}>Delete</button>
+          <div key={this.state[section].id}>
+            <Experience dataId={this.state[section].id} handleChange={handleChange} fields={this.state[section].fields} />
+            <button type='button' onClick={(e) => handleDelete(e, this.state[section].id)}>Delete</button>
           </div>
         )
-      } else if (section.name === 'education') {
+      } else if (this.state[section].name === 'education') {
         educationSections.push(
-          <div key={section.id}>
-            <Form dataId={section.id} handleChange={handleChange} fields={fields.education} />
-            <button type='button' onClick={(e) => handleDelete(e, section.id)}>Delete</button>
+          <div key={this.state[section].id}>
+            <Education dataId={this.state[section].id} handleChange={handleChange} fields={this.state[section].fields} />
+            <button type='button' onClick={(e) => handleDelete(e, this.state[section].id)}>Delete</button>
           </div>
         )
       }
     }
+    console.log(this.state)
     return (
       <div className='content'>
         <Header />
@@ -97,7 +93,7 @@ class Sections extends Component {
           <div className='sections'>
             <div className='personal'>
               <h2>Personal information</h2>
-              <Form dataId='0' handleChange={handleChange} fields={fields.personal} />
+              <Personal dataId='0' handleChange={handleChange} fields={this.state[0].fields} />
             </div>
             <div className='experience'>
               <h2>Work experience</h2>
