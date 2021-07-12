@@ -88,14 +88,14 @@ class Sections extends Component {
         experienceSections.push(
           <div key={this.state[section].id}>
             <Experience dataId={this.state[section].id} handleChange={handleChange} fields={this.state[section].fields} />
-            <button type='button' onClick={(e) => handleDelete(e, this.state[section].id)}>Delete</button>
+            <button type='button' className='delete-btn' onClick={(e) => handleDelete(e, this.state[section].id)}>Delete</button>
           </div>
         )
       } else if (this.state[section].name === 'education') {
         educationSections.push(
           <div key={this.state[section].id}>
             <Education dataId={this.state[section].id} handleChange={handleChange} fields={this.state[section].fields} />
-            <button type='button' onClick={(e) => handleDelete(e, this.state[section].id)}>Delete</button>
+            <button type='button' className='delete-btn' onClick={(e) => handleDelete(e, this.state[section].id)}>Delete</button>
           </div>
         )
       }
@@ -112,15 +112,15 @@ class Sections extends Component {
             <div className='experience'>
               <h2>Work experience</h2>
               {experienceSections}
-              <button type='button' onClick={(e) => handleAdd(e, 'experience')}>Add</button>
+              <button type='button' className='add-btn' onClick={(e) => handleAdd(e, 'experience')}>Add</button>
             </div>
             <div className='education'>
               <h2>Education and training</h2>
               {educationSections}
-              <button type='button' onClick={(e) => handleAdd(e, 'education')}>Add</button>
+              <button type='button' className='add-btn' onClick={(e) => handleAdd(e, 'education')}>Add</button>
             </div>
           </div>
-          <button type='button' onClick={(e) => generatePdf(e)}>Generate PDF</button><br />
+          <button type='button' className='generate-btn' onClick={(e) => generatePdf(e)}>Generate PDF</button><br />
         </main>
       </div>
     )
