@@ -20,6 +20,7 @@
 <h3>Third party code</h3>
   <ul>
     <li><a href="https://fonts.google.com/">Google Fonts</a></li>
+    <li><a href="https://github.com/MrRio/jsPDF">jsPDF</a></li>
   </ul> 
 <h2>Home page</h2>
 <img src="src/img/Project.png"></img>
